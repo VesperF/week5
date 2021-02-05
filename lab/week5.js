@@ -29,4 +29,62 @@ function forecastHTML(dailyForecast) {
 // All your code can go inside of this event listener ⬇️ ⬇️ ⬇️ ⬇️ ⬇️
 window.addEventListener('DOMContentLoaded', function() {
   // Your code ...
+
+  let button = document.querySelector('#chicago-forecast')
+    button.addEventListener('click', async function(event){
+    event.preventDefault()
+   
+    let header = document.querySelector('#forecast-header')
+   
+    let location = button.innerHTML
+
+    header.innerHTML = `${location} Forecast`
+
+    let response = await fetch(`https://api.weatherapi.com/v1/forecast.json?key=${'4498add9fff045f6bb873226212701'}&q=LOCATION&days=3`)
+    
+    let json = await response.json()
+
+    // after examining the json object in console log
+    let forecast = json.forecast.forecastday
+    let forecastElement = document.querySelector('#forecast')
+    
+
+    for (let i=0; i<forecast.length; i++) {
+      let dailyForecast = forecast[i]
+
+      forecastElement.insertAdjacentHTML('beforeend', forecastHTML(dailyForecast))
+    }
+  
+  })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 })
